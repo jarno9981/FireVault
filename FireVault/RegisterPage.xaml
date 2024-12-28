@@ -1,0 +1,44 @@
+<Page
+    x:Class="FireVault.RegisterPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FireVault"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,40,0,0">
+            <Image Source="/Assets/FireVaultLogo.png" Width="100" Height="100" HorizontalAlignment="Center"/>
+            <TextBlock Text="FireVault" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+            <TextBlock Text="Secure Your Digital Life" FontSize="18" HorizontalAlignment="Center" Opacity="0.7" Margin="0,10,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" MaxWidth="400" Margin="20" VerticalAlignment="Center">
+            <TextBox x:Name="UsernameBox" Header="Username" PlaceholderText="Enter your username">
+                
+            </TextBox>
+
+            <PasswordBox x:Name="PasswordBox" Header="Password" PlaceholderText="Enter your password" Margin="0,20,0,0">
+              
+            </PasswordBox>
+
+            <PasswordBox x:Name="ConfirmPasswordBox" Header="Confirm Password" PlaceholderText="Confirm your password" Margin="0,20,0,0">
+                
+            </PasswordBox>
+
+            <Button x:Name="RegisterButton" Content="Register" Click="RegisterButton_Click"
+                    Background="{ThemeResource SystemAccentColor}" Foreground="White"
+                    HorizontalAlignment="Stretch" Margin="0,40,0,0" Padding="0,10,0,10"/>
+
+            <HyperlinkButton Content="Already have an account? Login" Click="HyperlinkButton_Click"
+                             HorizontalAlignment="Center" Margin="0,20,0,0"/>
+        </StackPanel>
+    </Grid>
+</Page>

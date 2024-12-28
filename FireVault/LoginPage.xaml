@@ -1,0 +1,124 @@
+<Page
+    x:Class="FireVault.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FireVault"
+    xmlns:helpers="using:FireVaultCore.Models" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+   >
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <!-- Animation for card hover -->
+            <Storyboard x:Key="CardHoverAnimation">
+                <DoubleAnimation
+                    Storyboard.TargetProperty="Scale.(ScaleTransform.ScaleX)"
+                    From="1.0" To="1.05" Duration="0:0:0.2">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation
+                    Storyboard.TargetProperty="Scale.(ScaleTransform.ScaleY)"
+                    From="1.0" To="1.05" Duration="0:0:0.2">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="Transparent">
+        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- App Logo and Title -->
+        <StackPanel Grid.Row="0" Margin="0,40,0,20">
+            <Image Source="/Assets/StoreLogo.scale-100.png" Width="64" Height="64" 
+                   HorizontalAlignment="Center"/>
+            <TextBlock Text="FireVault" 
+                     FontSize="36" 
+                     FontWeight="SemiBold" 
+                     Margin="0,20,0,0" 
+                     HorizontalAlignment="Center"/>
+            <TextBlock Text="Select your profile to continue" 
+                     FontSize="16" 
+                     Opacity="0.7" 
+                     Margin="0,8,0,0" 
+                     HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- User Cards -->
+        <ScrollViewer Grid.Row="2" 
+                     HorizontalScrollMode="Enabled" 
+                     HorizontalScrollBarVisibility="Auto" 
+                     Padding="40,0">
+            <ItemsRepeater x:Name="UserCardsRepeater">
+                <ItemsRepeater.Layout>
+                    <StackLayout Orientation="Horizontal" Spacing="24"/>
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="helpers:User">
+                        <Button Click="UserCard_Click" 
+                                Tag="{x:Bind Username}"
+                                Width="220" Height="280">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Profile Picture -->
+                                <Ellipse Width="120" Height="120" 
+                                         Margin="0,24,0,0"
+                                         HorizontalAlignment="Center">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{x:Bind AvatarUrl}"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+
+                                <!-- Username -->
+                                <StackPanel Grid.Row="2" 
+                                          Margin="0,0,0,24" 
+                                          HorizontalAlignment="Center">
+                                    <TextBlock Text="{x:Bind Username}" 
+                                             FontSize="18"
+                                             FontWeight="SemiBold" 
+                                             HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Click to login" 
+                                             FontSize="12"
+                                             Opacity="0.6" 
+                                             Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Button>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
+
+        <!-- Add New User Button -->
+        <Button Grid.Row="3" 
+                Click="AddNewUser_Click"
+                HorizontalAlignment="Center" 
+                Margin="0,32,0,40">
+            <StackPanel Orientation="Horizontal">
+                <FontIcon FontFamily="Segoe MDL2 Assets" 
+                         Glyph="&#xE710;" 
+                         Margin="0,0,8,0"/>
+                <TextBlock Text="Add New User"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Page>
+

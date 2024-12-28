@@ -1,0 +1,105 @@
+<Page
+    x:Class="FireVault.VaultPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FireVault"
+    xmlns:helpers="using:FireVaultCore.Models"
+       xmlns:icons="using:FireVault.Helper"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+   >
+
+    <Grid Padding="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="{x:Bind PageTitle}"/>
+            <TextBlock Text="Securely store and manage your sensitive information" 
+                     Style="{StaticResource SubtitleTextBlockStyle}" 
+                     Opacity="0.7"
+                     Margin="0,8,0,0"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,24,0,24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="SearchBox" 
+                     PlaceholderText="Search vault items..." 
+                     >
+              
+            </TextBox>
+
+            <Button Grid.Column="1" 
+                    Margin="16,0,0,0" 
+                   
+                    Click="AddItemButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon Glyph="&#xE710;" FontFamily="Segoe MDL2 Assets" Margin="0,0,8,0"/>
+                    <TextBlock Text="Add Item"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <GridView x:Name="VaultItemsGridView" 
+                  Grid.Row="2" 
+                  ItemsSource="{x:Bind VaultItems}"
+                  SelectionMode="None"
+                  IsItemClickEnabled="True"
+                  ItemClick="VaultItem_Click">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="helpers:VaultItem">
+                    <Grid  
+                          Width="200" Height="120"
+                          Padding="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Grid.RowSpan="2" 
+                                 Glyph="{x:Bind icons:VaultItemHelper.GetGlyphForType(Type)}"
+                                 FontSize="24"
+                                 Margin="0,0,12,0"/>
+
+                        <TextBlock Grid.Column="1" 
+                                 Text="{x:Bind Title}" 
+                                 Style="{StaticResource SubtitleTextBlockStyle}" 
+                                 TextTrimming="CharacterEllipsis"/>
+
+                        <TextBlock Grid.Row="1" 
+                                 Grid.Column="1" 
+                                 Text="{x:Bind Type}" 
+                                 Style="{StaticResource CaptionTextBlockStyle}" 
+                                 Opacity="0.6"/>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+        <CommandBar Grid.Row="3" 
+                    DefaultLabelPosition="Right" 
+                    HorizontalAlignment="Center" 
+                    Background="Transparent">
+            <AppBarButton Icon="AllApps" 
+                         Label="View API Key" 
+                         Click="ViewApiKeyButton_Click"/>
+            <AppBarButton Icon="Permissions" 
+                         Label="Manage Trusted Apps" 
+                         Click="ManageTrustedAppsButton_Click"/>
+        </CommandBar>
+    </Grid>
+</Page>
+

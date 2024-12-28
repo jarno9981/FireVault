@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "FireVault (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "FireVault (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
